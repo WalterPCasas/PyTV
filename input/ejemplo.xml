@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<alerta>
+  <identificador>INDECI</identificador>  
+  <fechaHora>2015-06-17T14:57:00-07:00</fechaHora>
+  <estado>Actual</estado>
+  <tipoMensaje>Alerta</tipoMensaje>
+  <ambito>publico</ambito>  
+  <referencia>mensaje de alerta generado por las represas</referencia>
+  <informacion>
+    <idioma>español</idioma>
+    <categoria>Geodinamica_interna</categoria>
+    <evento>Sismo</evento> 
+    <tipoRespuesta>evacuar</tipoRespuesta> 
+    <urgencia>inmediato</urgencia>    
+    <severidad>severo</severidad> 
+    <certeza>confirmado</certeza>    
+    <efectivo>2015-06-17T14:57:00-07:00</efectivo> 
+	 <inicio>2016-10-27T22:47:28-22:47</inicio>
+	 <fin>2015-06-17T14:57:00-07:00</fin>
+	 <colorAlerta>rojo</colorAlerta> 
+	 <parametros>Fuerte sismo cerca a la capital, ubicar zonas seguras.</parametros>
+    <area>04-01-01</area> 
+  </informacion>
+</alerta> 
+ 
+  
