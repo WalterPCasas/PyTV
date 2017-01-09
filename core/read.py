@@ -14,6 +14,7 @@ raiz = docx.getroot()
 estado = raiz[2].text
 tipoMensaje = raiz[3].text
 informacion = raiz[6]
+
 evento = informacion[2].text
 tipoRespuesta = informacion[3].text
 severidad = informacion[5].text
