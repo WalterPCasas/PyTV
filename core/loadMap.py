@@ -2,85 +2,54 @@ import urllib
 import cStringIO 
 import Image
 
-
+# Recupera un mapa de Static Google Maps server
 def get_static_google_map(filename_wo_extension, center=None, zoom=None, imgsize="500x500", imgformat="jpeg",
                           maptype="roadmap", markers=None ):  
-    """retrieve a map (image) from the static google maps server 
     
-     See: http://code.google.com/apis/maps/documentation/staticmaps/
-        
-        Creates a request string with a URL like this:
-        http://maps.google.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap
-&markers=color:blue|label:S|40.702147,-74.015794&sensor=false"""
-   
-    
-    # assemble the URL
-    request =  "http://maps.google.com/maps/api/staticmap?" # base URL, append query params, separated by &
+    # Ensambla la URL
+    request =  "http://maps.google.com/maps/api/staticmap?" 
    
     # if center and zoom  are not given, the map will show all marker locations
     if center != None:
         request += "center=%s&" % center
-        #request += "center=%s&" % "40.714728, -73.998672"   # latitude and longitude (up to 6-digits)
-        #request += "center=%s&" % "50011" # could also be a zipcode,
-        #request += "center=%s&" % "Brooklyn+Bridge,New+York,NY"  # or a search term 
+        
     if center != None:
         request += "zoom=%i&" % zoom  # zoom 0 (all of the world scale ) to 22 (single buildings scale)
 
 
-    request += "size=%ix%i&" % (imgsize)  # tuple of ints, up to 640 by 640
+    request += "size=%ix%i&" % (imgsize) 
     request += "format=%s&" % imgformat
     request += "maptype=%s&" % maptype  # roadmap, satellite, hybrid, terrain
 
 
-    # add markers (location and style)
+    # add markers 
     if markers != None:
         for marker in markers:
                 request += "%s&" % marker
 
-
-    #request += "mobile=false&"  # optional: mobile=true will assume the image is shown on a small screen (mobile device)
-    request += "sensor=false&"   # must be given, deals with getting loction from mobile device 
+    request += "sensor=false&"   
     print request
     
-    urllib.urlretrieve(request, filename_wo_extension+"."+imgformat) # Option 1: save image directly to disk
+    # Genera el archivo
+    urllib.urlretrieve(request, filename_wo_extension+"."+imgformat) 
+
+
+def newImage(latitud,longitud):
+#if __name__ == '__main__':
     
-    # Option 2: read into PIL 
-    web_sock = urllib.urlopen(request)
-    imgdata = cStringIO.StringIO(web_sock.read()) # constructs a StringIO holding the image
-    try:
-        PIL_img = Image.open(imgdata)
-    
-    # if this cannot be read as image that, it's probably an error from the server,
-    except IOError:
-        print "IOError:", imgdata.read() # print error (or it may return a image showing the error"
-     
-    # show image 
-    else:
-        PIL_img.show()
-        #PIL_img.save(filename_wo_extension+".jpg", "JPEG") # save as jpeg
 
+    coordinates = str(latitud)+"%2C+"+str(longitud)
 
-if __name__ == '__main__':
-
-
-    # define a series of location markers and their styles
-    # syntax:  markers=markerStyles|markerLocation1|markerLocation2|... etc.
     marker_list = []
-    marker_list.append("path=color:red|wight:2|-73.4051666259765%2C+-70.820198059082|-15.9784679412842%2C+-70.8045120239258")
-    #marker_list.append("markers=size:mid|color:red|label:Alert|-12.04%2C-77.65") # blue S at several zip code's centers
-   # marker_list.append("markers=size:tiny|label:B|color:0xFFFF00|40.702147,-74.015794|") # tiny yellow B at lat/long
-   # marker_list.append("markers=size:mid|color:red|label:6|Departamento+Arequipa,Peru") # mid-sized red 6 at search location
-    # see http://code.google.com/apis/maps/documentation/staticmaps/#Markers
-
-
+    marker_list.append("markers=size:mid|color:red|wight:7|"+coordinates)
+   
     # make a map around a center
-    get_static_google_map("../app/img/google_map_result", center="Departamento+Callao,Peru", zoom=9, imgsize=(530,630),
+    get_static_google_map("../app/img/google_map_result", center=coordinates, zoom=9, imgsize=(530,630),
                           imgformat="png", maptype="roadmap", markers=marker_list)
 
 
-###    get_static_google_map("google_map_example2", center="Empire+State+Building", zoom=18, imgsize=(500,500), maptype="hybrid")
+print "Inicia carga de imagen...\nURL:\n"
 
+newImage(latitud, longitud)
 
-    # make map that shows all the markers
-###    get_static_google_map("google_map_example3", imgsize=(640,640), imgformat="png", markers=marker_list )
-
+print "\nDone"
