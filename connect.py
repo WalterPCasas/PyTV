@@ -4,8 +4,21 @@ from bs4 import BeautifulSoup
 
 
 def generador(name, value):
-	print(name)
-	print(value)
+    startTime = value[1]
+    arcEstado = open('app/txt/txtStartTime.txt', 'w')
+    arcEstado.write("Inicio: " + startTime)
+    arcEstado.close()
+
+    arcMessage = open('app/txt/txtMessage.txt', 'w')
+    arcMessage.write("Alerta de Sismo")
+    arcMessage.close()
+
+    severe = value[7]
+    arcSevere = open('app/txt/txtSevere.txt', 'w')
+    arcSevere.write("Intensidad: " + severe)
+    arcSevere.close()
+
+    print "Done"
 
 # Extraemos el HTML y ubicamos lo que queremos
 def analisisDescarga(conexion):
@@ -17,9 +30,13 @@ def analisisDescarga(conexion):
     tabla = soup.find_all(True, {'class':['cebra']})
     for tag in tabla:
     	td_list = tag.find_all("td");
+        #print td_list
     	name.append(td_list[0].string)
+        #print(td_list[1].string)
     	value.append(td_list[1].string)
     generador(name, value)  
+
+    #print(value[5])
 
 # Revisa la conexión de la página e intenta hasta que conecte
 def preparar(web):

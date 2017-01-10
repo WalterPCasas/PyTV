@@ -1,47 +1,19 @@
-<?php
-
-	$content = file_get_contents("http://ultimosismo.igp.gob.pe/");
-	// echo $content;
-
-	preg_match_all("|<[^>]+>(.*)</[^>]+>|U", $content, $cap );
-		
-	// var_export($cap);
-
-	/*** Reporte Sísmico ***/
-	// print_r($cap[0][9]);
-
-
-
-	// Parametros hipocentrales
-
-	print_r($cap[0][26]);  // Fecha Local
-	print_r($cap[0][28]);  // Hora Local
-	print_r($cap[0][30]);  // Latitud
-	print_r($cap[0][32]);  // Longitud
-	print_r($cap[0][34]);  // Profundidad
-	print_r($cap[0][36]);  // Referencia
-	print_r($cap[0][38]);  // Magnitud
-	print_r($cap[0][40]);  // Intensidad
-	print_r($cap[0][42]);  // Fecha UTC
-	print_r($cap[0][44]);  // Hora UTC
-
-	/*** Generación de XML ***/
-	$xml = new DomDocument('1.0', 'UTF-8'); 
-	
-	$root = $xml->createElement('alerta'); 
-	$root = $xml->appendChild($root); 
-
-	$colaborador=$xml->createElement('identificador', 'INDECI'); 
-	$colaborador =$root->appendChild($colaborador);
-
-	$fechaHora=$xml->createElement('fechaHora', $cap[0][42].'T'.$cap[0][44]); 
-	$fechaHora =$root->appendChild($fechaHora);
-
-
-	$xml->formatOutput = true;
- 
-	$strings_xml = $xml->saveXML();
-	$xml->save('/home/notfound/Documents/Work/Inictel/ejemplo.xml'); 
-
-	echo "<br><br>Listo!!";
-
+<!DOCTYPE html>
+<html>
+<head>
+   <title>PyTV</title>
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+   <h3>Report</h3>
+   <form class="form-group" method="get">
+      Event: <input class=" form-control" type="text" name="event"><br>
+      Time: <input class="form-control" type="text" name="time"><br>
+      Zone: <input class="form-control" type="text" name="event"><br>
+      Reference: <input class="form-control" type="text" name="time"><br>
+      <input class="btn btn-primary" type="submit" value="Submit">
+   </form>
+   
+</body>
+</html>
