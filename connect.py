@@ -27,16 +27,16 @@ def analisisDescarga(conexion):
     name = list()
     value = list()
     #obtenemos una lista de String con la condición de atributos class "cebra"
-    tabla = soup.find_all(True, {'class':['cebra']})
-    for tag in tabla:
-    	td_list = tag.find_all("td");
-        #print td_list
-    	name.append(td_list[0].string)
-        #print(td_list[1].string)
-    	value.append(td_list[1].string)
-    generador(name, value)  
+    tabla = soup.find_all(True, {'class':['descrip-info']})
+    print(tabla[0].string) # Fecha
+    print(tabla[1].string) # Hora 
+    print(tabla[2].string) # Magnitud
+    print(tabla[3].string) # Referencia
+    print(tabla[4].string) # Latitud
+    print(tabla[5].string) # Longitud
+    print(tabla[6].string) # Profundidad
+    print(tabla[7].string) # Intensidad
 
-    #print(value[5])
 
 # Revisa la conexión de la página e intenta hasta que conecte
 def preparar(web):

@@ -25,7 +25,9 @@
 	print_r($cap[0][42]);  // Fecha UTC
 	print_r($cap[0][44]);  // Hora UTC
 
-	/*** Generación de XML ***/
+
+
+	/*** Generación de XML 
 	$xml = new DomDocument('1.0', 'UTF-8'); 
 	
 	$root = $xml->createElement('alerta'); 
@@ -44,4 +46,6 @@
 	$xml->save('/home/notfound/Documents/Work/Inictel/ejemplo.xml'); 
 
 	echo "<br><br>Listo!!";
+
+	***/
 
